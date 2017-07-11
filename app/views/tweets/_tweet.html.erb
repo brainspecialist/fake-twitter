@@ -1,0 +1,7 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user.id) %>
+    <p><%= tweet.message %></p>
+    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+  </div>
+</div>
