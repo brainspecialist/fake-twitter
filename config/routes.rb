@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get 'unfollow' => 'epicenter#unfollow'
 
+  get 'tag_tweets' => 'epicenter#tag_tweets'
+
   root 'epicenter#feed'
 
   resources :tweets
