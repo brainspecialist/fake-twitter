@@ -1,9 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-body">
-  	<%= image_tag tweet.user.avatar.url, size: 50 %> <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user.id) %> • 
-  	<%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 1.day %>
-  	<%= tweet.created_at.strftime('%b %e') if Time.now - tweet.created_at > 1.day %>
+  	<%= link_to show_user_path(id: tweet.user.id) do %>
+  	  <%= image_tag tweet.user.avatar.url, size: 50 %>
+  	  <span class='text-primary'><%= "@#{tweet.user.username}" %></span>
+  	  <span class='text-muted'>
+  	     • <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 1.day %>
+  	    <%= tweet.created_at.strftime('%b %e') if Time.now - tweet.created_at > 1.day %>
+  	  </span>
+  	<% end %>
     <p><%= tweet.message.html_safe %></p>
-    <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
   </div>
 </div>

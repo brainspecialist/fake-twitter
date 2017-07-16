@@ -1,8 +1,5 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-  	<%= image_tag user.avatar.url, size: 100 %>
-	<p><%= user.name %></p>
-	<p><%= user.location %></p>
-	<p><%= user.bio %></p>
-  </div>
-</div>
+<%= image_tag user.avatar.url, size: 100 %>
+<h3>@<%= user.username %></h3>
+<p><%= user.name %></p>
+<p><%= user.location %></p>
+<p><%= user.bio %></p>
