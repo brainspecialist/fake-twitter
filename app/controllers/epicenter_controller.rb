@@ -12,6 +12,10 @@ class EpicenterController < ApplicationController
     end
   end
 
+  def all_users
+    @users = User.order(:username)
+  end
+
   def show_user
   	@user = User.find(params[:id])
   end
@@ -33,6 +37,28 @@ class EpicenterController < ApplicationController
   	redirect_to show_user_path(id: params[:id])
   end
 
+  def following
+    @user = User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if @user.following.include?(user.id)
+        @users.push(user)
+      end
+    end
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @users = []
+
+    User.all.each do |user|
+      if user.following.include?(@user.id)
+        @users.push(user)
+      end
+    end
+  end
+  
   def tag_tweets
     @tag = Tag.find(params[:id])
   end

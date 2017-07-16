@@ -12,12 +12,14 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  def pic
-  	if self.avatar.file.nil?
-  		return "no_icon.jpg"
-  	else
-  		return self.avatar.url
-  	end
+  def follower_count 
+    followers = []
+    User.all.each do |user|
+      if user.following.include?(self.id)
+        followers.push(user)
+      end
+    end
+    followers.count
   end
 
 end

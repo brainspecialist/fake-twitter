@@ -1,0 +1,20 @@
+<ul>
+  <li>
+  	<%= link_to following_path(id: user.id) do %>
+  	<p>Following</p>
+  	<%= user.following.length %>
+  	<% end %>
+  </li>
+  <li>
+  	<%= link_to followers_path(id: user.id) do %>
+  	<p>Followers</p>
+  	<%= user.follower_count %>
+  	<% end %>
+  </li>
+  <li>
+  	<%= link_to show_user_path(id: user.id) do %>
+  	<p>Tweets</p>
+  	<%= user.tweets.count %>
+  	<% end %>
+  </li>
+</ul>
