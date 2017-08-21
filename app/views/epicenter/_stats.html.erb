@@ -2,13 +2,13 @@
   <li>
   	<%= link_to following_path(id: user.id) do %>
   	<p class="text-muted">Following</p>
-  	<h4 class="text-primary"><%= user.following.length %></h4>
+  	<h4 class="text-primary"><%= user.follow_count ||= 0 %></h4>
   	<% end %>
   </li>
   <li>
   	<%= link_to followers_path(id: user.id) do %>
   	<p class="text-muted">Followers</p>
-  	<h4 class="text-primary"><%= user.follower_count %></h4>
+  	<h4 class="text-primary"><%= user.followers ||= 0 %></h4>
   	<% end %>
   </li>
   <li>

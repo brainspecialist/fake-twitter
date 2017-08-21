@@ -10,16 +10,10 @@ class User < ApplicationRecord
   
   has_many :tweets
 
-  mount_uploader :avatar, AvatarUploader
+  has_many :follows, :foreign_key => "user_id", :class_name => "Follow"
 
-  def follower_count 
-    followers = []
-    User.all.each do |user|
-      if user.following.include?(self.id)
-        followers.push(user)
-      end
-    end
-    followers.count
-  end
+  has_many :followings, :through => :follows
+
+  mount_uploader :avatar, AvatarUploader
 
 end

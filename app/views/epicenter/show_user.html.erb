@@ -1,4 +1,4 @@
-<h1>@<%= @user.username %>'s Profile & Tweets</h1>
+
 <div class="row">
   <div class="col-md-3">
   	<%= render 'profile', user: @user %>
@@ -6,9 +6,9 @@
   <div class="col-md-6">
   	<div class="panel panel-default">
   	  <div class="panel-body">
-  	    <% render 'stats', user: @user %>
+  	    <%= render 'stats', user: @user %>
   		<p class='pull-right'>
-		  <% if current_user.following.include?(@user.id) %>
+		  <% if @following.include?(@user.id) %>
 		    <%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-primary", id: "unfollow_btn" %>
 		  <% else %>
 		    <% if current_user.id != @user.id %>

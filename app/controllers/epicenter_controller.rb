@@ -1,12 +1,13 @@
 class EpicenterController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_following, only: [:feed, :all_users, :show_user]
 
   def feed
   	@following_tweets = []
     @tweet = Tweet.new
 
     Tweet.all.order(created_at: :desc).each do |tweet|
-      if current_user.following.include?(tweet.user_id) || current_user.id == tweet.user_id
+      if @following.include?(tweet.user_id) || current_user.id == tweet.user_id
         @following_tweets.push(tweet)
       end
     end
@@ -21,18 +22,15 @@ class EpicenterController < ApplicationController
   end
 
   def now_following
-  	# We are adding the user.id of the user you want to 
-  	# follow to your following array.
-  	# and we want to make sure it's saved in there as an integer
-  	current_user.following.push(params[:id].to_i)
-  	current_user.save
+  	# Add the ID of the user to follow and current user's ID to Follow table
+  	Follow.create(user_id: current_user.id, following_id: params[:id].to_i)
 
   	redirect_to show_user_path(id: params[:id])
   end
 
   def unfollow
-  	current_user.following.delete(params[:id].to_i)
-  	current_user.save
+  	@followship = Follow.where("user_id = ? AND following_id =?", current_user.id, params[:id].to_i).take
+    @followship.destroy
 
   	redirect_to show_user_path(id: params[:id])
   end
@@ -61,6 +59,12 @@ class EpicenterController < ApplicationController
   
   def tag_tweets
     @tag = Tag.find(params[:id])
+  end
+
+  private
+
+  def set_following
+    @following = Follow.where(user_id: current_user.id).pluck(:following_id)
   end
   
 end
