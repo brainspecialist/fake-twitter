@@ -37,6 +37,8 @@ gem 'carrierwave'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 
+gem 'faker'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

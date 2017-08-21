@@ -1,6 +1,6 @@
 class EpicenterController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_following, only: [:feed, :all_users, :show_user]
+  before_action :set_following, only: [:feed, :all_users, :show_user, :following, :followers]
 
   def feed
   	@following_tweets = []
@@ -37,24 +37,17 @@ class EpicenterController < ApplicationController
 
   def following
     @user = User.find(params[:id])
-    @users = []
 
-    User.all.each do |user|
-      if @user.following.include?(user.id)
-        @users.push(user)
-      end
-    end
+    ids = Follow.where(user_id: @user.id).pluck(:following_id)
+    @users = User.where(id: ids)
+
   end
 
   def followers
     @user = User.find(params[:id])
-    @users = []
-
-    User.all.each do |user|
-      if user.following.include?(@user.id)
-        @users.push(user)
-      end
-    end
+    
+    ids = Follow.where(following_id: @user.id).pluck(:user_id)
+    @users = User.where(id: ids)
   end
   
   def tag_tweets
